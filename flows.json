@@ -63,7 +63,7 @@
         "path": "/paneles-solares-pro-v2",
         "icon": "dashboard",
         "layout": "grid",
-        "theme": "ui_theme_solar_v2",
+        "theme": "e5f6cbadf8c92108",
         "breakpoints": [
             {
                 "name": "Default",
@@ -86,7 +86,10 @@
                 "cols": "12"
             }
         ],
-        "order": 1
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
     },
     {
         "id": "ui_group_control_v2",
@@ -152,6 +155,25 @@
         "className": "",
         "visible": "true",
         "disabled": "false"
+    },
+    {
+        "id": "e5f6cbadf8c92108",
+        "type": "ui-theme",
+        "name": "Theme Name",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0094ce",
+            "bgPage": "#eeeeee",
+            "groupBg": "#ffffff",
+            "groupOutline": "#cccccc"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
     },
     {
         "id": "inject_estado_inicial_v2",
@@ -246,7 +268,7 @@
         "id": "inject_generar_datos_solares_v2",
         "type": "inject",
         "z": "tab_sensor_solar_mqtt_v2",
-        "name": "Generar datos cada 10 segundos",
+        "name": "Generar datos ",
         "props": [
             {
                 "p": "payload"
@@ -259,7 +281,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 180,
+        "x": 120,
         "y": 240,
         "wires": [
             [
@@ -284,7 +306,7 @@
         "checkall": "true",
         "repair": false,
         "outputs": 1,
-        "x": 430,
+        "x": 360,
         "y": 240,
         "wires": [
             [
@@ -355,7 +377,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 680,
+        "x": 610,
         "y": 220,
         "wires": [
             [
@@ -372,7 +394,7 @@
         "property": "payload",
         "action": "str",
         "pretty": false,
-        "x": 910,
+        "x": 840,
         "y": 220,
         "wires": [
             [
@@ -394,7 +416,7 @@
         "correl": "",
         "expiry": "",
         "broker": "mqtt_broker_solar_v2",
-        "x": 1110,
+        "x": 1040,
         "y": 220,
         "wires": []
     },
@@ -411,8 +433,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 930,
-        "y": 280,
+        "x": 880,
+        "y": 260,
         "wires": []
     },
     {
@@ -476,7 +498,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 680,
+        "x": 630,
         "y": 300,
         "wires": [
             [
@@ -493,7 +515,7 @@
         "property": "payload",
         "action": "str",
         "pretty": false,
-        "x": 910,
+        "x": 840,
         "y": 300,
         "wires": [
             [
@@ -515,7 +537,7 @@
         "correl": "",
         "expiry": "",
         "broker": "mqtt_broker_solar_v2",
-        "x": 1110,
+        "x": 1040,
         "y": 300,
         "wires": []
     },
@@ -532,8 +554,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 930,
-        "y": 360,
+        "x": 880,
+        "y": 340,
         "wires": []
     },
     {
@@ -597,7 +619,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 680,
+        "x": 610,
         "y": 380,
         "wires": [
             [
@@ -614,7 +636,7 @@
         "property": "payload",
         "action": "str",
         "pretty": false,
-        "x": 910,
+        "x": 840,
         "y": 380,
         "wires": [
             [
@@ -636,7 +658,7 @@
         "correl": "",
         "expiry": "",
         "broker": "mqtt_broker_solar_v2",
-        "x": 1110,
+        "x": 1040,
         "y": 380,
         "wires": []
     },
@@ -653,8 +675,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 930,
-        "y": 440,
+        "x": 880,
+        "y": 420,
         "wires": []
     },
     {
@@ -671,8 +693,8 @@
         "correl": "",
         "expiry": "",
         "broker": "mqtt_broker_solar_v2",
-        "x": 430,
-        "y": 80,
+        "x": 360,
+        "y": 170,
         "wires": []
     },
     {
@@ -694,8 +716,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 430,
-        "y": 130,
+        "x": 360,
+        "y": 220,
         "wires": [
             [
                 "ui_text_control_v2"
@@ -715,8 +737,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 180,
-        "y": 240,
+        "x": 160,
+        "y": 480,
         "wires": [
             [
                 "switch_separar_paneles_v2",
@@ -737,8 +759,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 460,
-        "y": 310,
+        "x": 440,
+        "y": 540,
         "wires": []
     },
     {
@@ -769,7 +791,7 @@
         "repair": false,
         "outputs": 3,
         "x": 450,
-        "y": 240,
+        "y": 430,
         "wires": [
             [
                 "change_p1_voltaje_v2",
@@ -822,8 +844,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 420,
+        "x": 800,
+        "y": 220,
         "wires": [
             [
                 "gauge_p1_voltaje_v2"
@@ -849,8 +871,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 460,
+        "x": 800,
+        "y": 260,
         "wires": [
             [
                 "gauge_p1_corriente_v2"
@@ -876,8 +898,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 500,
+        "x": 800,
+        "y": 300,
         "wires": [
             [
                 "gauge_p1_radiacion_v2"
@@ -903,8 +925,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 540,
+        "x": 800,
+        "y": 340,
         "wires": [
             [
                 "gauge_p1_potencia_v2"
@@ -930,8 +952,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 580,
+        "x": 800,
+        "y": 380,
         "wires": [
             [
                 "text_p1_estado_v2"
@@ -957,8 +979,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 620,
+        "x": 800,
+        "y": 420,
         "wires": [
             [
                 "text_p1_info_v2"
@@ -984,8 +1006,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 660,
+        "x": 800,
+        "y": 460,
         "wires": [
             [
                 "template_p1_alarmas_v2"
@@ -1018,8 +1040,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 700,
+        "x": 800,
+        "y": 500,
         "wires": [
             [
                 "chart_potencia_general_v2"
@@ -1045,8 +1067,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 780,
+        "x": 780,
+        "y": 560,
         "wires": [
             [
                 "gauge_p2_voltaje_v2"
@@ -1072,8 +1094,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 820,
+        "x": 780,
+        "y": 600,
         "wires": [
             [
                 "gauge_p2_corriente_v2"
@@ -1099,8 +1121,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 860,
+        "x": 780,
+        "y": 640,
         "wires": [
             [
                 "gauge_p2_radiacion_v2"
@@ -1126,8 +1148,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 900,
+        "x": 780,
+        "y": 680,
         "wires": [
             [
                 "gauge_p2_potencia_v2"
@@ -1153,8 +1175,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 940,
+        "x": 780,
+        "y": 720,
         "wires": [
             [
                 "text_p2_estado_v2"
@@ -1180,8 +1202,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 980,
+        "x": 780,
+        "y": 760,
         "wires": [
             [
                 "text_p2_info_v2"
@@ -1207,8 +1229,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 1020,
+        "x": 780,
+        "y": 800,
         "wires": [
             [
                 "template_p2_alarmas_v2"
@@ -1241,8 +1263,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 1060,
+        "x": 780,
+        "y": 840,
         "wires": [
             [
                 "chart_potencia_general_v2"
@@ -1268,8 +1290,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 1140,
+        "x": 770,
+        "y": 900,
         "wires": [
             [
                 "gauge_p3_voltaje_v2"
@@ -1295,8 +1317,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 1180,
+        "x": 770,
+        "y": 940,
         "wires": [
             [
                 "gauge_p3_corriente_v2"
@@ -1322,8 +1344,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 1220,
+        "x": 770,
+        "y": 980,
         "wires": [
             [
                 "gauge_p3_radiacion_v2"
@@ -1349,8 +1371,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 1260,
+        "x": 770,
+        "y": 1020,
         "wires": [
             [
                 "gauge_p3_potencia_v2"
@@ -1376,8 +1398,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 1300,
+        "x": 770,
+        "y": 1060,
         "wires": [
             [
                 "text_p3_estado_v2"
@@ -1403,8 +1425,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 1340,
+        "x": 770,
+        "y": 1100,
         "wires": [
             [
                 "text_p3_info_v2"
@@ -1430,8 +1452,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 1380,
+        "x": 770,
+        "y": 1140,
         "wires": [
             [
                 "template_p3_alarmas_v2"
@@ -1464,8 +1486,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 720,
-        "y": 1420,
+        "x": 770,
+        "y": 1180,
         "wires": [
             [
                 "chart_potencia_general_v2"
@@ -1493,8 +1515,8 @@
         "payloadType": "str",
         "topic": "solar/sistema/control",
         "topicType": "str",
-        "x": 160,
-        "y": 60,
+        "x": 90,
+        "y": 150,
         "wires": [
             [
                 "mqtt_out_control_dashboard_v2",
@@ -1523,8 +1545,8 @@
         "payloadType": "str",
         "topic": "solar/sistema/control",
         "topicType": "str",
-        "x": 150,
-        "y": 110,
+        "x": 100,
+        "y": 200,
         "wires": [
             [
                 "mqtt_out_control_dashboard_v2",
@@ -1552,8 +1574,8 @@
         "className": "",
         "value": "payload",
         "valueType": "msg",
-        "x": 700,
-        "y": 160,
+        "x": 600,
+        "y": 200,
         "wires": []
     },
     {
@@ -1567,14 +1589,17 @@
         "name": "P1 Estado",
         "label": "Estado:",
         "format": "{{msg.payload}}",
-        "layout": "row-spread",
+        "layout": "col-center",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
+        "wrapText": false,
         "className": "",
-        "x": 970,
-        "y": 580,
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1050,
+        "y": 380,
         "wires": []
     },
     {
@@ -1588,14 +1613,17 @@
         "name": "P1 Info",
         "label": "Información:",
         "format": "{{msg.payload}}",
-        "layout": "row-spread",
+        "layout": "col-center",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
+        "wrapText": false,
         "className": "",
-        "x": 960,
-        "y": 620,
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1040,
+        "y": 420,
         "wires": []
     },
     {
@@ -1609,14 +1637,17 @@
         "name": "P2 Estado",
         "label": "Estado:",
         "format": "{{msg.payload}}",
-        "layout": "row-spread",
+        "layout": "col-center",
         "style": false,
         "font": "",
         "fontSize": 16,
         "color": "#000000",
+        "wrapText": false,
         "className": "",
-        "x": 970,
-        "y": 940,
+        "value": "payload",
+        "valueType": "msg",
+        "x": 1030,
+        "y": 720,
         "wires": []
     },
     {
@@ -1636,8 +1667,8 @@
         "fontSize": 16,
         "color": "#000000",
         "className": "",
-        "x": 960,
-        "y": 980,
+        "x": 1020,
+        "y": 760,
         "wires": []
     },
     {
@@ -1657,8 +1688,8 @@
         "fontSize": 16,
         "color": "#000000",
         "className": "",
-        "x": 970,
-        "y": 1300,
+        "x": 1020,
+        "y": 1060,
         "wires": []
     },
     {
@@ -1678,8 +1709,8 @@
         "fontSize": 16,
         "color": "#000000",
         "className": "",
-        "x": 960,
-        "y": 1340,
+        "x": 1010,
+        "y": 1100,
         "wires": []
     },
     {
@@ -1737,8 +1768,8 @@
         "width": "12",
         "height": "5",
         "className": "",
-        "x": 1020,
-        "y": 1440,
+        "x": 1070,
+        "y": 1200,
         "wires": [
             []
         ]
@@ -1780,8 +1811,8 @@
         "sizeKeyThickness": "8",
         "styleRounded": true,
         "className": "",
-        "x": 980,
-        "y": 420,
+        "x": 1060,
+        "y": 220,
         "wires": [
             []
         ]
@@ -1823,8 +1854,8 @@
         "sizeKeyThickness": "8",
         "styleRounded": true,
         "className": "",
-        "x": 990,
-        "y": 460,
+        "x": 1070,
+        "y": 260,
         "wires": [
             []
         ]
@@ -1866,8 +1897,8 @@
         "sizeKeyThickness": "8",
         "styleRounded": true,
         "className": "",
-        "x": 990,
-        "y": 500,
+        "x": 1070,
+        "y": 300,
         "wires": [
             []
         ]
@@ -1909,8 +1940,8 @@
         "sizeKeyThickness": "8",
         "styleRounded": true,
         "className": "",
-        "x": 980,
-        "y": 540,
+        "x": 1060,
+        "y": 340,
         "wires": [
             []
         ]
@@ -1952,8 +1983,8 @@
         "sizeKeyThickness": "8",
         "styleRounded": true,
         "className": "",
-        "x": 980,
-        "y": 780,
+        "x": 1040,
+        "y": 560,
         "wires": [
             []
         ]
@@ -1995,8 +2026,8 @@
         "sizeKeyThickness": "8",
         "styleRounded": true,
         "className": "",
-        "x": 990,
-        "y": 820,
+        "x": 1050,
+        "y": 600,
         "wires": [
             []
         ]
@@ -2038,8 +2069,8 @@
         "sizeKeyThickness": "8",
         "styleRounded": true,
         "className": "",
-        "x": 990,
-        "y": 860,
+        "x": 1050,
+        "y": 640,
         "wires": [
             []
         ]
@@ -2081,8 +2112,8 @@
         "sizeKeyThickness": "8",
         "styleRounded": true,
         "className": "",
-        "x": 980,
-        "y": 900,
+        "x": 1040,
+        "y": 680,
         "wires": [
             []
         ]
@@ -2124,8 +2155,8 @@
         "sizeKeyThickness": "8",
         "styleRounded": true,
         "className": "",
-        "x": 980,
-        "y": 1140,
+        "x": 1030,
+        "y": 900,
         "wires": [
             []
         ]
@@ -2167,8 +2198,8 @@
         "sizeKeyThickness": "8",
         "styleRounded": true,
         "className": "",
-        "x": 990,
-        "y": 1180,
+        "x": 1040,
+        "y": 940,
         "wires": [
             []
         ]
@@ -2210,8 +2241,8 @@
         "sizeKeyThickness": "8",
         "styleRounded": true,
         "className": "",
-        "x": 990,
-        "y": 1220,
+        "x": 1040,
+        "y": 980,
         "wires": [
             []
         ]
@@ -2253,8 +2284,8 @@
         "sizeKeyThickness": "8",
         "styleRounded": true,
         "className": "",
-        "x": 980,
-        "y": 1260,
+        "x": 1030,
+        "y": 1020,
         "wires": [
             []
         ]
@@ -2276,8 +2307,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1000,
-        "y": 660,
+        "x": 1100,
+        "y": 480,
         "wires": [
             []
         ]
@@ -2299,8 +2330,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1000,
-        "y": 1020,
+        "x": 1060,
+        "y": 800,
         "wires": [
             []
         ]
@@ -2322,8 +2353,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 1000,
-        "y": 1380,
+        "x": 1050,
+        "y": 1140,
         "wires": [
             []
         ]
@@ -2345,8 +2376,8 @@
         "resendOnRefresh": true,
         "templateScope": "site:style",
         "className": "",
-        "x": 440,
-        "y": 180,
+        "x": 460,
+        "y": 340,
         "wires": [
             []
         ]
@@ -2368,8 +2399,8 @@
         "resendOnRefresh": true,
         "templateScope": "local",
         "className": "",
-        "x": 150,
-        "y": 180,
+        "x": 190,
+        "y": 340,
         "wires": [
             []
         ]

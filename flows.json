@@ -1,55 +1,2377 @@
 [
     {
-        "id": "29e98c0a40ad9ad4",
+        "id": "tab_sensor_solar_mqtt_v2",
         "type": "tab",
-        "label": "Flujo 1",
+        "label": "Cliente Sensor MQTT",
         "disabled": false,
-        "info": "",
-        "env": []
+        "info": "Simula 3 paneles solares y publica datos por MQTT. Tambien recibe el control de encendido/apagado."
     },
     {
-        "id": "7d58709bc4edc8c9",
+        "id": "tab_dashboard_solar_mqtt_v2",
+        "type": "tab",
+        "label": "Cliente Dashboard MQTT",
+        "disabled": false,
+        "info": "Recibe datos MQTT, muestra dashboard, botones de control y alarmas con LEDs."
+    },
+    {
+        "id": "mqtt_broker_solar_v2",
+        "type": "mqtt-broker",
+        "name": "Broker MQTT Local",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "ui_base_solar_v2",
+        "type": "ui-base",
+        "name": "Dashboard Solar Pro V2",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "navigationStyle": "default",
+        "titleBarStyle": "default"
+    },
+    {
+        "id": "ui_page_solar_v2",
+        "type": "ui-page",
+        "name": "Gestión de Paneles Solares Pro V2",
+        "ui": "ui_base_solar_v2",
+        "path": "/paneles-solares-pro-v2",
+        "icon": "dashboard",
+        "layout": "grid",
+        "theme": "ui_theme_solar_v2",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1
+    },
+    {
+        "id": "ui_group_control_v2",
+        "type": "ui-group",
+        "name": "Control del Sistema",
+        "page": "ui_page_solar_v2",
+        "width": "12",
+        "height": "1",
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "ui_group_panel1_v2",
+        "type": "ui-group",
+        "name": "Panel Solar 1",
+        "page": "ui_page_solar_v2",
+        "width": "12",
+        "height": "1",
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "ui_group_panel2_v2",
+        "type": "ui-group",
+        "name": "Panel Solar 2",
+        "page": "ui_page_solar_v2",
+        "width": "12",
+        "height": "1",
+        "order": 3,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "ui_group_panel3_v2",
+        "type": "ui-group",
+        "name": "Panel Solar 3",
+        "page": "ui_page_solar_v2",
+        "width": "12",
+        "height": "1",
+        "order": 4,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "ui_group_chart_v2",
+        "type": "ui-group",
+        "name": "Producción Energética General",
+        "page": "ui_page_solar_v2",
+        "width": "12",
+        "height": "1",
+        "order": 5,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "inject_estado_inicial_v2",
         "type": "inject",
-        "z": "29e98c0a40ad9ad4",
-        "name": "",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Estado inicial: encendido",
         "props": [
             {
                 "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
             }
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "once": true,
+        "onceDelay": "1",
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
+        "payload": "encendido",
+        "payloadType": "str",
         "x": 170,
-        "y": 160,
+        "y": 60,
         "wires": [
             [
-                "6ebedb8e5c90091d"
+                "change_guardar_control_sensor_v2"
             ]
         ]
     },
     {
-        "id": "6ebedb8e5c90091d",
+        "id": "mqtt_in_control_sensor_v2",
+        "type": "mqtt in",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Recibir control encendido/apagado",
+        "topic": "solar/sistema/control",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "mqtt_broker_solar_v2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "change_guardar_control_sensor_v2",
+                "debug_control_sensor_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_guardar_control_sensor_v2",
+        "type": "change",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Guardar estado del sistema",
+        "rules": [
+            {
+                "t": "set",
+                "p": "estadoSistema",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 470,
+        "y": 90,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "debug_control_sensor_v2",
         "type": "debug",
-        "z": "29e98c0a40ad9ad4",
-        "name": "debug 1",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Debug control recibido",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "false",
+        "complete": "payload",
+        "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 500,
+        "x": 470,
+        "y": 150,
+        "wires": []
+    },
+    {
+        "id": "inject_generar_datos_solares_v2",
+        "type": "inject",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Generar datos cada 10 segundos",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "switch_sistema_encendido_v2"
+            ]
+        ]
+    },
+    {
+        "id": "switch_sistema_encendido_v2",
+        "type": "switch",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "¿Sistema encendido?",
+        "property": "estadoSistema",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "encendido",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 430,
+        "y": 240,
+        "wires": [
+            [
+                "change_panel1_solar_v2",
+                "change_panel2_solar_v2",
+                "change_panel3_solar_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_panel1_solar_v2",
+        "type": "change",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Simular Panel Solar 1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "solar/panel1/datos",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"sistema\":\"Gestion de paneles solares\",\"panel\":\"Panel Solar 1\",\"ubicacion\":\"Laboratorio de Energia\",\"voltaje\":$round((12 + $random() * 12) * 10) / 10,\"corriente\":$round((1.2 + $random() * 9) * 10) / 10,\"radiacion\":$round(200 + $random() * 800),\"potencia\":0,\"estado\":\"\",\"alarmaVoltaje\":false,\"alarmaRadiacion\":false,\"alarmaProduccion\":false}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.potencia",
+                "pt": "msg",
+                "to": "$round(payload.voltaje * payload.corriente)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.estado",
+                "pt": "msg",
+                "to": "payload.radiacion >= 700 ? \"Produccion alta\" : payload.radiacion >= 400 ? \"Produccion media\" : \"Produccion baja\"",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.alarmaVoltaje",
+                "pt": "msg",
+                "to": "payload.voltaje < 13",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.alarmaRadiacion",
+                "pt": "msg",
+                "to": "payload.radiacion < 400",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.alarmaProduccion",
+                "pt": "msg",
+                "to": "payload.potencia < 50",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 220,
+        "wires": [
+            [
+                "json_panel1_salida_v2",
+                "debug_panel1_generado_v2"
+            ]
+        ]
+    },
+    {
+        "id": "json_panel1_salida_v2",
+        "type": "json",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "JSON Panel 1",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 910,
+        "y": 220,
+        "wires": [
+            [
+                "mqtt_out_panel1_v2"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_out_panel1_v2",
+        "type": "mqtt out",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Publicar Panel 1",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "mqtt_broker_solar_v2",
+        "x": 1110,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "debug_panel1_generado_v2",
+        "type": "debug",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Debug Panel 1 generado",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "change_panel2_solar_v2",
+        "type": "change",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Simular Panel Solar 2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "solar/panel2/datos",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"sistema\":\"Gestion de paneles solares\",\"panel\":\"Panel Solar 2\",\"ubicacion\":\"Laboratorio de Energia\",\"voltaje\":$round((13 + $random() * 12) * 10) / 10,\"corriente\":$round((1.4 + $random() * 9) * 10) / 10,\"radiacion\":$round(200 + $random() * 800),\"potencia\":0,\"estado\":\"\",\"alarmaVoltaje\":false,\"alarmaRadiacion\":false,\"alarmaProduccion\":false}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.potencia",
+                "pt": "msg",
+                "to": "$round(payload.voltaje * payload.corriente)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.estado",
+                "pt": "msg",
+                "to": "payload.radiacion >= 700 ? \"Produccion alta\" : payload.radiacion >= 400 ? \"Produccion media\" : \"Produccion baja\"",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.alarmaVoltaje",
+                "pt": "msg",
+                "to": "payload.voltaje < 13",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.alarmaRadiacion",
+                "pt": "msg",
+                "to": "payload.radiacion < 400",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.alarmaProduccion",
+                "pt": "msg",
+                "to": "payload.potencia < 50",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 300,
+        "wires": [
+            [
+                "json_panel2_salida_v2",
+                "debug_panel2_generado_v2"
+            ]
+        ]
+    },
+    {
+        "id": "json_panel2_salida_v2",
+        "type": "json",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "JSON Panel 2",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 910,
+        "y": 300,
+        "wires": [
+            [
+                "mqtt_out_panel2_v2"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_out_panel2_v2",
+        "type": "mqtt out",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Publicar Panel 2",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "mqtt_broker_solar_v2",
+        "x": 1110,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "debug_panel2_generado_v2",
+        "type": "debug",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Debug Panel 2 generado",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "change_panel3_solar_v2",
+        "type": "change",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Simular Panel Solar 3",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "solar/panel3/datos",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"sistema\":\"Gestion de paneles solares\",\"panel\":\"Panel Solar 3\",\"ubicacion\":\"Laboratorio de Energia\",\"voltaje\":$round((14 + $random() * 12) * 10) / 10,\"corriente\":$round((1.6 + $random() * 9) * 10) / 10,\"radiacion\":$round(200 + $random() * 800),\"potencia\":0,\"estado\":\"\",\"alarmaVoltaje\":false,\"alarmaRadiacion\":false,\"alarmaProduccion\":false}",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.potencia",
+                "pt": "msg",
+                "to": "$round(payload.voltaje * payload.corriente)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.estado",
+                "pt": "msg",
+                "to": "payload.radiacion >= 700 ? \"Produccion alta\" : payload.radiacion >= 400 ? \"Produccion media\" : \"Produccion baja\"",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.alarmaVoltaje",
+                "pt": "msg",
+                "to": "payload.voltaje < 13",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.alarmaRadiacion",
+                "pt": "msg",
+                "to": "payload.radiacion < 400",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "payload.alarmaProduccion",
+                "pt": "msg",
+                "to": "payload.potencia < 50",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 380,
+        "wires": [
+            [
+                "json_panel3_salida_v2",
+                "debug_panel3_generado_v2"
+            ]
+        ]
+    },
+    {
+        "id": "json_panel3_salida_v2",
+        "type": "json",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "JSON Panel 3",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 910,
+        "y": 380,
+        "wires": [
+            [
+                "mqtt_out_panel3_v2"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_out_panel3_v2",
+        "type": "mqtt out",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Publicar Panel 3",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "mqtt_broker_solar_v2",
+        "x": 1110,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "debug_panel3_generado_v2",
+        "type": "debug",
+        "z": "tab_sensor_solar_mqtt_v2",
+        "name": "Debug Panel 3 generado",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 930,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "mqtt_out_control_dashboard_v2",
+        "type": "mqtt out",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "Enviar control MQTT",
+        "topic": "",
+        "qos": "0",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "mqtt_broker_solar_v2",
+        "x": 430,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "change_text_control_dashboard_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "Texto estado control",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload = \"encendido\" ? \"Sistema encendido: monitoreo activo\" : \"Sistema apagado: monitoreo detenido\"",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 130,
+        "wires": [
+            [
+                "ui_text_control_v2"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_in_all_panels_v2",
+        "type": "mqtt in",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "Recibir datos de todos los paneles",
+        "topic": "solar/+/datos",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "mqtt_broker_solar_v2",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 240,
+        "wires": [
+            [
+                "switch_separar_paneles_v2",
+                "debug_mqtt_recibido_v2"
+            ]
+        ]
+    },
+    {
+        "id": "debug_mqtt_recibido_v2",
+        "type": "debug",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "Debug MQTT recibido",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 310,
+        "wires": []
+    },
+    {
+        "id": "switch_separar_paneles_v2",
+        "type": "switch",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "Separar por panel",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "solar/panel1/datos",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "solar/panel2/datos",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "solar/panel3/datos",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 3,
+        "x": 450,
+        "y": 240,
+        "wires": [
+            [
+                "change_p1_voltaje_v2",
+                "change_p1_corriente_v2",
+                "change_p1_radiacion_v2",
+                "change_p1_potencia_v2",
+                "change_p1_estado_v2",
+                "change_p1_info_v2",
+                "change_p1_alarmas_v2",
+                "change_p1_chart_v2"
+            ],
+            [
+                "change_p2_voltaje_v2",
+                "change_p2_corriente_v2",
+                "change_p2_radiacion_v2",
+                "change_p2_potencia_v2",
+                "change_p2_estado_v2",
+                "change_p2_info_v2",
+                "change_p2_alarmas_v2",
+                "change_p2_chart_v2"
+            ],
+            [
+                "change_p3_voltaje_v2",
+                "change_p3_corriente_v2",
+                "change_p3_radiacion_v2",
+                "change_p3_potencia_v2",
+                "change_p3_estado_v2",
+                "change_p3_info_v2",
+                "change_p3_alarmas_v2",
+                "change_p3_chart_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p1_voltaje_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P1 voltaje",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.voltaje",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 420,
+        "wires": [
+            [
+                "gauge_p1_voltaje_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p1_corriente_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P1 corriente",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.corriente",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 460,
+        "wires": [
+            [
+                "gauge_p1_corriente_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p1_radiacion_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P1 radiación",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.radiacion",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 500,
+        "wires": [
+            [
+                "gauge_p1_radiacion_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p1_potencia_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P1 potencia",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.potencia",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 540,
+        "wires": [
+            [
+                "gauge_p1_potencia_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p1_estado_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P1 estado",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.estado",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 580,
+        "wires": [
+            [
+                "text_p1_estado_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p1_info_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P1 info corta",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.panel & \" | \" & payload.ubicacion",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 620,
+        "wires": [
+            [
+                "text_p1_info_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p1_alarmas_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P1 alarmas LED",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"voltaje\": payload.alarmaVoltaje ? \"alarma\" : \"normal\", \"radiacion\": payload.alarmaRadiacion ? \"alarma\" : \"normal\", \"produccion\": payload.alarmaProduccion ? \"alarma\" : \"normal\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 660,
+        "wires": [
+            [
+                "template_p1_alarmas_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p1_chart_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P1 chart potencia",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.potencia",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Panel Solar 1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 700,
+        "wires": [
+            [
+                "chart_potencia_general_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p2_voltaje_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P2 voltaje",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.voltaje",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 780,
+        "wires": [
+            [
+                "gauge_p2_voltaje_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p2_corriente_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P2 corriente",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.corriente",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 820,
+        "wires": [
+            [
+                "gauge_p2_corriente_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p2_radiacion_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P2 radiación",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.radiacion",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 860,
+        "wires": [
+            [
+                "gauge_p2_radiacion_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p2_potencia_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P2 potencia",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.potencia",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 900,
+        "wires": [
+            [
+                "gauge_p2_potencia_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p2_estado_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P2 estado",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.estado",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 940,
+        "wires": [
+            [
+                "text_p2_estado_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p2_info_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P2 info corta",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.panel & \" | \" & payload.ubicacion",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 980,
+        "wires": [
+            [
+                "text_p2_info_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p2_alarmas_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P2 alarmas LED",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"voltaje\": payload.alarmaVoltaje ? \"alarma\" : \"normal\", \"radiacion\": payload.alarmaRadiacion ? \"alarma\" : \"normal\", \"produccion\": payload.alarmaProduccion ? \"alarma\" : \"normal\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 1020,
+        "wires": [
+            [
+                "template_p2_alarmas_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p2_chart_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P2 chart potencia",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.potencia",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Panel Solar 2",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 1060,
+        "wires": [
+            [
+                "chart_potencia_general_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p3_voltaje_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P3 voltaje",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.voltaje",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 1140,
+        "wires": [
+            [
+                "gauge_p3_voltaje_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p3_corriente_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P3 corriente",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.corriente",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 1180,
+        "wires": [
+            [
+                "gauge_p3_corriente_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p3_radiacion_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P3 radiación",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.radiacion",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 1220,
+        "wires": [
+            [
+                "gauge_p3_radiacion_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p3_potencia_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P3 potencia",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.potencia",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 1260,
+        "wires": [
+            [
+                "gauge_p3_potencia_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p3_estado_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P3 estado",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.estado",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 1300,
+        "wires": [
+            [
+                "text_p3_estado_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p3_info_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P3 info corta",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.panel & \" | \" & payload.ubicacion",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 1340,
+        "wires": [
+            [
+                "text_p3_info_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p3_alarmas_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P3 alarmas LED",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"voltaje\": payload.alarmaVoltaje ? \"alarma\" : \"normal\", \"radiacion\": payload.alarmaRadiacion ? \"alarma\" : \"normal\", \"produccion\": payload.alarmaProduccion ? \"alarma\" : \"normal\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 1380,
+        "wires": [
+            [
+                "template_p3_alarmas_v2"
+            ]
+        ]
+    },
+    {
+        "id": "change_p3_chart_v2",
+        "type": "change",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P3 chart potencia",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.potencia",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Panel Solar 3",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 1420,
+        "wires": [
+            [
+                "chart_potencia_general_v2"
+            ]
+        ]
+    },
+    {
+        "id": "ui_button_encender_v2",
+        "type": "ui-button",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_control_v2",
+        "name": "Botón encender",
+        "label": "Encender sistema",
+        "order": 2,
+        "width": "3",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "encendido",
+        "payloadType": "str",
+        "topic": "solar/sistema/control",
+        "topicType": "str",
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "mqtt_out_control_dashboard_v2",
+                "change_text_control_dashboard_v2"
+            ]
+        ]
+    },
+    {
+        "id": "ui_button_apagar_v2",
+        "type": "ui-button",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_control_v2",
+        "name": "Botón apagar",
+        "label": "Apagar sistema",
+        "order": 3,
+        "width": "3",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "apagado",
+        "payloadType": "str",
+        "topic": "solar/sistema/control",
+        "topicType": "str",
+        "x": 150,
+        "y": 110,
+        "wires": [
+            [
+                "mqtt_out_control_dashboard_v2",
+                "change_text_control_dashboard_v2"
+            ]
+        ]
+    },
+    {
+        "id": "ui_text_control_v2",
+        "type": "ui-text",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_control_v2",
+        "order": 4,
+        "width": "6",
+        "height": "1",
+        "name": "Estado control",
+        "label": "Estado del control:",
+        "format": "{{msg.payload}}",
+        "layout": "row-center",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 700,
         "y": 160,
         "wires": []
+    },
+    {
+        "id": "text_p1_estado_v2",
+        "type": "ui-text",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_panel1_v2",
+        "order": 5,
+        "width": "4",
+        "height": "1",
+        "name": "P1 Estado",
+        "label": "Estado:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "className": "",
+        "x": 970,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "text_p1_info_v2",
+        "type": "ui-text",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_panel1_v2",
+        "order": 6,
+        "width": "4",
+        "height": "1",
+        "name": "P1 Info",
+        "label": "Información:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "className": "",
+        "x": 960,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "text_p2_estado_v2",
+        "type": "ui-text",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_panel2_v2",
+        "order": 5,
+        "width": "4",
+        "height": "1",
+        "name": "P2 Estado",
+        "label": "Estado:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "className": "",
+        "x": 970,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "text_p2_info_v2",
+        "type": "ui-text",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_panel2_v2",
+        "order": 6,
+        "width": "4",
+        "height": "1",
+        "name": "P2 Info",
+        "label": "Información:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "className": "",
+        "x": 960,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "text_p3_estado_v2",
+        "type": "ui-text",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_panel3_v2",
+        "order": 5,
+        "width": "4",
+        "height": "1",
+        "name": "P3 Estado",
+        "label": "Estado:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "className": "",
+        "x": 970,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "text_p3_info_v2",
+        "type": "ui-text",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_panel3_v2",
+        "order": 6,
+        "width": "4",
+        "height": "1",
+        "name": "P3 Info",
+        "label": "Información:",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "className": "",
+        "x": 960,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "chart_potencia_general_v2",
+        "type": "ui-chart",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_chart_v2",
+        "name": "Gráfica Potencia General",
+        "label": "Producción energética de los paneles",
+        "order": 1,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "Tiempo",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "HH:mm:ss",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "Watts",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "0",
+        "ymax": "240",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": "5",
+        "removeOlderUnit": "60",
+        "removeOlderPoints": "",
+        "colors": [
+            "#f2b705",
+            "#0094ce",
+            "#ff0000",
+            "#00c853",
+            "#9c27b0",
+            "#795548",
+            "#607d8b",
+            "#e91e63",
+            "#3f51b5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": "12",
+        "height": "5",
+        "className": "",
+        "x": 1020,
+        "y": 1440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "gauge_p1_voltaje_v2",
+        "type": "ui-gauge",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P1 Gauge Voltaje",
+        "group": "ui_group_panel1_v2",
+        "order": 1,
+        "width": "3",
+        "height": "3",
+        "gtype": "gage",
+        "gstyle": "rounded",
+        "title": "Voltaje",
+        "units": "V",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000"
+            },
+            {
+                "from": "12",
+                "color": "#ffc800"
+            },
+            {
+                "from": "18",
+                "color": "#00c853"
+            }
+        ],
+        "min": 0,
+        "max": "24",
+        "sizeThickness": "12",
+        "sizeGap": "4",
+        "sizeKeyThickness": "8",
+        "styleRounded": true,
+        "className": "",
+        "x": 980,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "gauge_p1_corriente_v2",
+        "type": "ui-gauge",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P1 Gauge Corriente",
+        "group": "ui_group_panel1_v2",
+        "order": 2,
+        "width": "3",
+        "height": "3",
+        "gtype": "gage",
+        "gstyle": "rounded",
+        "title": "Corriente",
+        "units": "A",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000"
+            },
+            {
+                "from": "3",
+                "color": "#ffc800"
+            },
+            {
+                "from": "6",
+                "color": "#00c853"
+            }
+        ],
+        "min": 0,
+        "max": "10",
+        "sizeThickness": "12",
+        "sizeGap": "4",
+        "sizeKeyThickness": "8",
+        "styleRounded": true,
+        "className": "",
+        "x": 990,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "gauge_p1_radiacion_v2",
+        "type": "ui-gauge",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P1 Gauge Radiacion",
+        "group": "ui_group_panel1_v2",
+        "order": 3,
+        "width": "3",
+        "height": "3",
+        "gtype": "gage",
+        "gstyle": "rounded",
+        "title": "Radiación",
+        "units": "W/m²",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000"
+            },
+            {
+                "from": "400",
+                "color": "#ffc800"
+            },
+            {
+                "from": "700",
+                "color": "#00c853"
+            }
+        ],
+        "min": 0,
+        "max": "1000",
+        "sizeThickness": "12",
+        "sizeGap": "4",
+        "sizeKeyThickness": "8",
+        "styleRounded": true,
+        "className": "",
+        "x": 990,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "gauge_p1_potencia_v2",
+        "type": "ui-gauge",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P1 Gauge Potencia",
+        "group": "ui_group_panel1_v2",
+        "order": 4,
+        "width": "3",
+        "height": "3",
+        "gtype": "gage",
+        "gstyle": "rounded",
+        "title": "Potencia",
+        "units": "W",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000"
+            },
+            {
+                "from": "80",
+                "color": "#ffc800"
+            },
+            {
+                "from": "150",
+                "color": "#00c853"
+            }
+        ],
+        "min": 0,
+        "max": "240",
+        "sizeThickness": "12",
+        "sizeGap": "4",
+        "sizeKeyThickness": "8",
+        "styleRounded": true,
+        "className": "",
+        "x": 980,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "gauge_p2_voltaje_v2",
+        "type": "ui-gauge",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P2 Gauge Voltaje",
+        "group": "ui_group_panel2_v2",
+        "order": 1,
+        "width": "3",
+        "height": "3",
+        "gtype": "gage",
+        "gstyle": "rounded",
+        "title": "Voltaje",
+        "units": "V",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000"
+            },
+            {
+                "from": "12",
+                "color": "#ffc800"
+            },
+            {
+                "from": "18",
+                "color": "#00c853"
+            }
+        ],
+        "min": 0,
+        "max": "24",
+        "sizeThickness": "12",
+        "sizeGap": "4",
+        "sizeKeyThickness": "8",
+        "styleRounded": true,
+        "className": "",
+        "x": 980,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "gauge_p2_corriente_v2",
+        "type": "ui-gauge",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P2 Gauge Corriente",
+        "group": "ui_group_panel2_v2",
+        "order": 2,
+        "width": "3",
+        "height": "3",
+        "gtype": "gage",
+        "gstyle": "rounded",
+        "title": "Corriente",
+        "units": "A",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000"
+            },
+            {
+                "from": "3",
+                "color": "#ffc800"
+            },
+            {
+                "from": "6",
+                "color": "#00c853"
+            }
+        ],
+        "min": 0,
+        "max": "10",
+        "sizeThickness": "12",
+        "sizeGap": "4",
+        "sizeKeyThickness": "8",
+        "styleRounded": true,
+        "className": "",
+        "x": 990,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "gauge_p2_radiacion_v2",
+        "type": "ui-gauge",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P2 Gauge Radiacion",
+        "group": "ui_group_panel2_v2",
+        "order": 3,
+        "width": "3",
+        "height": "3",
+        "gtype": "gage",
+        "gstyle": "rounded",
+        "title": "Radiación",
+        "units": "W/m²",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000"
+            },
+            {
+                "from": "400",
+                "color": "#ffc800"
+            },
+            {
+                "from": "700",
+                "color": "#00c853"
+            }
+        ],
+        "min": 0,
+        "max": "1000",
+        "sizeThickness": "12",
+        "sizeGap": "4",
+        "sizeKeyThickness": "8",
+        "styleRounded": true,
+        "className": "",
+        "x": 990,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "gauge_p2_potencia_v2",
+        "type": "ui-gauge",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P2 Gauge Potencia",
+        "group": "ui_group_panel2_v2",
+        "order": 4,
+        "width": "3",
+        "height": "3",
+        "gtype": "gage",
+        "gstyle": "rounded",
+        "title": "Potencia",
+        "units": "W",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000"
+            },
+            {
+                "from": "80",
+                "color": "#ffc800"
+            },
+            {
+                "from": "150",
+                "color": "#00c853"
+            }
+        ],
+        "min": 0,
+        "max": "240",
+        "sizeThickness": "12",
+        "sizeGap": "4",
+        "sizeKeyThickness": "8",
+        "styleRounded": true,
+        "className": "",
+        "x": 980,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "gauge_p3_voltaje_v2",
+        "type": "ui-gauge",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P3 Gauge Voltaje",
+        "group": "ui_group_panel3_v2",
+        "order": 1,
+        "width": "3",
+        "height": "3",
+        "gtype": "gage",
+        "gstyle": "rounded",
+        "title": "Voltaje",
+        "units": "V",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000"
+            },
+            {
+                "from": "12",
+                "color": "#ffc800"
+            },
+            {
+                "from": "18",
+                "color": "#00c853"
+            }
+        ],
+        "min": 0,
+        "max": "24",
+        "sizeThickness": "12",
+        "sizeGap": "4",
+        "sizeKeyThickness": "8",
+        "styleRounded": true,
+        "className": "",
+        "x": 980,
+        "y": 1140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "gauge_p3_corriente_v2",
+        "type": "ui-gauge",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P3 Gauge Corriente",
+        "group": "ui_group_panel3_v2",
+        "order": 2,
+        "width": "3",
+        "height": "3",
+        "gtype": "gage",
+        "gstyle": "rounded",
+        "title": "Corriente",
+        "units": "A",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000"
+            },
+            {
+                "from": "3",
+                "color": "#ffc800"
+            },
+            {
+                "from": "6",
+                "color": "#00c853"
+            }
+        ],
+        "min": 0,
+        "max": "10",
+        "sizeThickness": "12",
+        "sizeGap": "4",
+        "sizeKeyThickness": "8",
+        "styleRounded": true,
+        "className": "",
+        "x": 990,
+        "y": 1180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "gauge_p3_radiacion_v2",
+        "type": "ui-gauge",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P3 Gauge Radiacion",
+        "group": "ui_group_panel3_v2",
+        "order": 3,
+        "width": "3",
+        "height": "3",
+        "gtype": "gage",
+        "gstyle": "rounded",
+        "title": "Radiación",
+        "units": "W/m²",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000"
+            },
+            {
+                "from": "400",
+                "color": "#ffc800"
+            },
+            {
+                "from": "700",
+                "color": "#00c853"
+            }
+        ],
+        "min": 0,
+        "max": "1000",
+        "sizeThickness": "12",
+        "sizeGap": "4",
+        "sizeKeyThickness": "8",
+        "styleRounded": true,
+        "className": "",
+        "x": 990,
+        "y": 1220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "gauge_p3_potencia_v2",
+        "type": "ui-gauge",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "name": "P3 Gauge Potencia",
+        "group": "ui_group_panel3_v2",
+        "order": 4,
+        "width": "3",
+        "height": "3",
+        "gtype": "gage",
+        "gstyle": "rounded",
+        "title": "Potencia",
+        "units": "W",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#ff0000"
+            },
+            {
+                "from": "80",
+                "color": "#ffc800"
+            },
+            {
+                "from": "150",
+                "color": "#00c853"
+            }
+        ],
+        "min": 0,
+        "max": "240",
+        "sizeThickness": "12",
+        "sizeGap": "4",
+        "sizeKeyThickness": "8",
+        "styleRounded": true,
+        "className": "",
+        "x": 980,
+        "y": 1260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "template_p1_alarmas_v2",
+        "type": "ui-template",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_panel1_v2",
+        "page": "",
+        "ui": "",
+        "name": "P1 LEDs de alarmas",
+        "order": 7,
+        "width": "4",
+        "height": "3",
+        "format": "<template>\n  <div class=\"led-card-solar\">\n    <div class=\"led-title-solar\">Alarmas Panel 1</div>\n\n    <div class=\"led-row-solar\">\n      <span class=\"led-solar\" :class=\"msg.payload.voltaje === 'alarma' ? 'led-red-solar' : 'led-green-solar'\"></span>\n      <span>Voltaje bajo</span>\n    </div>\n\n    <div class=\"led-row-solar\">\n      <span class=\"led-solar\" :class=\"msg.payload.radiacion === 'alarma' ? 'led-red-solar' : 'led-green-solar'\"></span>\n      <span>Radiación baja</span>\n    </div>\n\n    <div class=\"led-row-solar\">\n      <span class=\"led-solar\" :class=\"msg.payload.produccion === 'alarma' ? 'led-red-solar' : 'led-green-solar'\"></span>\n      <span>Producción baja</span>\n    </div>\n  </div>\n</template>\n\n<style>\n.led-card-solar {\n  padding: 14px;\n  border-radius: 16px;\n  background: linear-gradient(135deg, #ffffff, #f1f8e9);\n  border: 1px solid rgba(0,0,0,.08);\n  box-shadow: 0 4px 16px rgba(0,0,0,.13);\n}\n.led-title-solar {\n  font-weight: 900;\n  font-size: 17px;\n  color: #263238;\n  margin-bottom: 10px;\n}\n.led-row-solar {\n  display: flex;\n  align-items: center;\n  gap: 11px;\n  margin: 10px 0;\n  font-size: 15px;\n  font-weight: 700;\n  color: #263238;\n}\n.led-solar {\n  width: 24px;\n  height: 24px;\n  min-width: 24px;\n  border-radius: 50%;\n  display: inline-block;\n  border: 2px solid #263238;\n}\n.led-green-solar {\n  background: #00c853;\n  box-shadow: 0 0 15px #00c853;\n}\n.led-red-solar {\n  background: #ff1744;\n  box-shadow: 0 0 18px #ff1744;\n  animation: blinkSolarLed 1s infinite;\n}\n@keyframes blinkSolarLed {\n  0% { opacity: 1; transform: scale(1); }\n  50% { opacity: .45; transform: scale(.90); }\n  100% { opacity: 1; transform: scale(1); }\n}\n</style>\n\n",
+        "storeOutMessages": false,
+        "passthru": false,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1000,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "template_p2_alarmas_v2",
+        "type": "ui-template",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_panel2_v2",
+        "page": "",
+        "ui": "",
+        "name": "P2 LEDs de alarmas",
+        "order": 7,
+        "width": "4",
+        "height": "3",
+        "format": "<template>\n  <div class=\"led-card-solar\">\n    <div class=\"led-title-solar\">Alarmas Panel 2</div>\n\n    <div class=\"led-row-solar\">\n      <span class=\"led-solar\" :class=\"msg.payload.voltaje === 'alarma' ? 'led-red-solar' : 'led-green-solar'\"></span>\n      <span>Voltaje bajo</span>\n    </div>\n\n    <div class=\"led-row-solar\">\n      <span class=\"led-solar\" :class=\"msg.payload.radiacion === 'alarma' ? 'led-red-solar' : 'led-green-solar'\"></span>\n      <span>Radiación baja</span>\n    </div>\n\n    <div class=\"led-row-solar\">\n      <span class=\"led-solar\" :class=\"msg.payload.produccion === 'alarma' ? 'led-red-solar' : 'led-green-solar'\"></span>\n      <span>Producción baja</span>\n    </div>\n  </div>\n</template>\n\n<style>\n.led-card-solar {\n  padding: 14px;\n  border-radius: 16px;\n  background: linear-gradient(135deg, #ffffff, #f1f8e9);\n  border: 1px solid rgba(0,0,0,.08);\n  box-shadow: 0 4px 16px rgba(0,0,0,.13);\n}\n.led-title-solar {\n  font-weight: 900;\n  font-size: 17px;\n  color: #263238;\n  margin-bottom: 10px;\n}\n.led-row-solar {\n  display: flex;\n  align-items: center;\n  gap: 11px;\n  margin: 10px 0;\n  font-size: 15px;\n  font-weight: 700;\n  color: #263238;\n}\n.led-solar {\n  width: 24px;\n  height: 24px;\n  min-width: 24px;\n  border-radius: 50%;\n  display: inline-block;\n  border: 2px solid #263238;\n}\n.led-green-solar {\n  background: #00c853;\n  box-shadow: 0 0 15px #00c853;\n}\n.led-red-solar {\n  background: #ff1744;\n  box-shadow: 0 0 18px #ff1744;\n  animation: blinkSolarLed 1s infinite;\n}\n@keyframes blinkSolarLed {\n  0% { opacity: 1; transform: scale(1); }\n  50% { opacity: .45; transform: scale(.90); }\n  100% { opacity: 1; transform: scale(1); }\n}\n</style>\n\n",
+        "storeOutMessages": false,
+        "passthru": false,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1000,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "template_p3_alarmas_v2",
+        "type": "ui-template",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_panel3_v2",
+        "page": "",
+        "ui": "",
+        "name": "P3 LEDs de alarmas",
+        "order": 7,
+        "width": "4",
+        "height": "3",
+        "format": "<template>\n  <div class=\"led-card-solar\">\n    <div class=\"led-title-solar\">Alarmas Panel 3</div>\n\n    <div class=\"led-row-solar\">\n      <span class=\"led-solar\" :class=\"msg.payload.voltaje === 'alarma' ? 'led-red-solar' : 'led-green-solar'\"></span>\n      <span>Voltaje bajo</span>\n    </div>\n\n    <div class=\"led-row-solar\">\n      <span class=\"led-solar\" :class=\"msg.payload.radiacion === 'alarma' ? 'led-red-solar' : 'led-green-solar'\"></span>\n      <span>Radiación baja</span>\n    </div>\n\n    <div class=\"led-row-solar\">\n      <span class=\"led-solar\" :class=\"msg.payload.produccion === 'alarma' ? 'led-red-solar' : 'led-green-solar'\"></span>\n      <span>Producción baja</span>\n    </div>\n  </div>\n</template>\n\n<style>\n.led-card-solar {\n  padding: 14px;\n  border-radius: 16px;\n  background: linear-gradient(135deg, #ffffff, #f1f8e9);\n  border: 1px solid rgba(0,0,0,.08);\n  box-shadow: 0 4px 16px rgba(0,0,0,.13);\n}\n.led-title-solar {\n  font-weight: 900;\n  font-size: 17px;\n  color: #263238;\n  margin-bottom: 10px;\n}\n.led-row-solar {\n  display: flex;\n  align-items: center;\n  gap: 11px;\n  margin: 10px 0;\n  font-size: 15px;\n  font-weight: 700;\n  color: #263238;\n}\n.led-solar {\n  width: 24px;\n  height: 24px;\n  min-width: 24px;\n  border-radius: 50%;\n  display: inline-block;\n  border: 2px solid #263238;\n}\n.led-green-solar {\n  background: #00c853;\n  box-shadow: 0 0 15px #00c853;\n}\n.led-red-solar {\n  background: #ff1744;\n  box-shadow: 0 0 18px #ff1744;\n  animation: blinkSolarLed 1s infinite;\n}\n@keyframes blinkSolarLed {\n  0% { opacity: 1; transform: scale(1); }\n  50% { opacity: .45; transform: scale(.90); }\n  100% { opacity: 1; transform: scale(1); }\n}\n</style>\n\n",
+        "storeOutMessages": false,
+        "passthru": false,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1000,
+        "y": 1380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "template_css_global_solar_v3",
+        "type": "ui-template",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "",
+        "page": "",
+        "ui": "ui_base_solar_v2",
+        "name": "CSS Global Dashboard Solar",
+        "order": 0,
+        "width": "0",
+        "height": "0",
+        "format": "/* ===== DASHBOARD SOLAR MINIMALISTA ===== */\n\nhtml,\nbody,\n#app,\n.v-application,\n.v-application__wrap,\n.v-main,\n.v-main__wrap,\n.nrdb-ui-dashboard {\n    background: #f4f7f9 !important;\n    font-family: Arial, Helvetica, sans-serif !important;\n}\n\n/* Barra superior */\n.v-toolbar,\nheader,\n.v-app-bar {\n    background: #ffffff !important;\n    color: #1f2933 !important;\n    box-shadow: 0 2px 10px rgba(0, 0, 0, .08) !important;\n    border-bottom: 1px solid #e5e7eb !important;\n}\n\n.v-toolbar-title,\n.v-app-bar-title {\n    font-weight: 800 !important;\n    letter-spacing: .2px !important;\n}\n\n/* Contenedores principales */\n.v-card,\n.nrdb-ui-group {\n    background: #ffffff !important;\n    border-radius: 18px !important;\n    border: 1px solid #e5e7eb !important;\n    box-shadow: 0 6px 18px rgba(31, 41, 51, .08) !important;\n    overflow: hidden !important;\n    margin-bottom: 18px !important;\n}\n\n/* Títulos de grupos */\n.v-card-title,\n.nrdb-ui-group-title {\n    background: #ffffff !important;\n    color: #1f2933 !important;\n    font-size: 24px !important;\n    font-weight: 800 !important;\n    padding: 18px 22px !important;\n    border-bottom: 1px solid #edf0f2 !important;\n}\n\n/* Botones */\n.v-btn,\nbutton {\n    border-radius: 12px !important;\n    font-weight: 700 !important;\n    text-transform: none !important;\n    box-shadow: none !important;\n    transition: all .2s ease-in-out !important;\n}\n\n.v-btn:hover,\nbutton:hover {\n    transform: translateY(-1px) !important;\n    box-shadow: 0 6px 14px rgba(0, 0, 0, .12) !important;\n}\n\n/* Botones amarillos más suaves */\n.v-btn.bg-primary,\nbutton {\n    background: #fbbf24 !important;\n    color: #111827 !important;\n}\n\n/* Tarjetas internas de gauges */\n.nrdb-ui-gauge {\n    background: #fafafa !important;\n    border-radius: 16px !important;\n    border: 1px solid #eeeeee !important;\n    padding: 10px !important;\n}\n\n/* Títulos de widgets */\n.nrdb-ui-gauge label,\n.nrdb-ui-gauge .label {\n    color: #111827 !important;\n    font-weight: 800 !important;\n}\n\n/* Textos */\n.v-card-text,\n.nrdb-ui-text {\n    color: #374151 !important;\n    font-size: 16px !important;\n}\n\n/* Banner principal que ya tienes */\n.solar-banner,\n.banner-solar,\n.panel-header {\n    background: linear-gradient(135deg, #ffffff, #f9fafb) !important;\n    color: #1f2933 !important;\n    border-radius: 16px !important;\n    border: 1px solid #e5e7eb !important;\n    box-shadow: 0 4px 14px rgba(0, 0, 0, .06) !important;\n}\n\n.solar-banner h1,\n.banner-solar h1,\n.panel-header h1,\n.panel-header h2 {\n    color: #111827 !important;\n    font-weight: 800 !important;\n}\n\n.solar-banner p,\n.banner-solar p,\n.panel-header p {\n    color: #6b7280 !important;\n}\n\n/* Tarjeta de alarmas */\n.alarma-card {\n    background: #ffffff !important;\n    border: 1px solid #e5e7eb !important;\n    border-left: 5px solid #22c55e !important;\n    border-radius: 16px !important;\n    padding: 16px !important;\n    box-shadow: 0 4px 14px rgba(0, 0, 0, .07) !important;\n}\n\n.alarma-card h3,\n.alarma-card h2 {\n    color: #111827 !important;\n    font-weight: 800 !important;\n    margin-bottom: 12px !important;\n}\n\n/* LEDs */\n.led {\n    width: 22px !important;\n    height: 22px !important;\n    border-radius: 50% !important;\n    display: inline-block !important;\n    margin-right: 12px !important;\n    border: 2px solid #ffffff !important;\n}\n\n.led-verde {\n    background: #22c55e !important;\n    box-shadow: 0 0 12px rgba(34, 197, 94, .65) !important;\n}\n\n.led-rojo {\n    background: #ef4444 !important;\n    box-shadow: 0 0 12px rgba(239, 68, 68, .7) !important;\n    animation: parpadeo-suave 1.2s infinite !important;\n}\n\n@keyframes parpadeo-suave {\n    0% {\n        opacity: 1;\n    }\n\n    50% {\n        opacity: .45;\n    }\n\n    100% {\n        opacity: 1;\n    }\n}\n\n/* Gráfica */\n.nrdb-ui-chart,\ncanvas {\n    background: #ffffff !important;\n    border-radius: 16px !important;\n}\n\n/* Quita bordes visuales exagerados */\n* {\n    scrollbar-color: #cbd5e1 #f1f5f9;\n}",
+        "storeOutMessages": false,
+        "passthru": false,
+        "resendOnRefresh": true,
+        "templateScope": "site:style",
+        "className": "",
+        "x": 440,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "template_banner_solar_v2",
+        "type": "ui-template",
+        "z": "tab_dashboard_solar_mqtt_v2",
+        "group": "ui_group_control_v2",
+        "page": "",
+        "ui": "",
+        "name": "Banner visual solar",
+        "order": 1,
+        "width": "12",
+        "height": "2",
+        "format": "<template>\n  <div style=\"padding:16px;border-radius:18px;background:linear-gradient(90deg,#263238,#455a64);color:white;display:flex;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 6px 18px rgba(0,0,0,.25);\">\n    <div>\n      <div style=\"font-size:24px;font-weight:900;\">Sistema IoT de Gestión de Paneles Solares</div>\n      <div style=\"font-size:14px;opacity:.9;margin-top:4px;\">Monitoreo MQTT de voltaje, corriente, radiación y potencia generada</div>\n    </div>\n    <div style=\"font-size:42px;\"></div>\n  </div>\n</template>",
+        "storeOutMessages": false,
+        "passthru": false,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 150,
+        "y": 180,
+        "wires": [
+            []
+        ]
     }
 ]

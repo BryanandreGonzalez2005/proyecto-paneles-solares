@@ -1,1 +1,1 @@
-Prueba de actualización desde GitHub para realizar pull en Node-RED.
+Prueba de actualización desde GitHub para realizar pull en Node-RED
